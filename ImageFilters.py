@@ -1,59 +1,62 @@
 # Lab 9 – Image Processing
-# Name:
-# Date:
-# Assignment:
+# Name: Talia Astorino
+# Date: 04/05/2026
+# Purpose: Swappinf values of pixels in images.
 
 from PIL import Image
 
 
 def swapGreenBlue(img):
-    """Swap the green and blue values for every pixel in the image."""
-    
-    pixels = img.load()
+
     width, height = img.size
 
-    # TODO: Loop through every pixel and swap green and blue values
+    for x in range(width):
+        for y in range(height):
+            red, green, blue = img.getpixel((x, y))
+            img.putpixel((x, y), (red, blue, green))
 
     img.save("swapGB.png")
 
 
 def darken(img, amount):
-    """Darken the image by reducing RGB values by the given amount."""
-    
-    pixels = img.load()
+
     width, height = img.size
 
-    # TODO: Loop through every pixel and reduce RGB values by amount
-    # Make sure values do not go below 0
+    for x in range(width):
+        for y in range(height):
+            red, green, blue = img.getpixel((x, y))
+
+            red = max(0, red - amount)
+            green = max(0, green - amount)
+            blue = max(0, blue - amount)
+
+            img.putpixel((x, y), (red, green, blue))
 
     img.save("darkImg.png")
 
 
 def bwFilter(img):
-    """Example function: converts image to grayscale."""
-    
-    pixels = img.load()
+
     width, height = img.size
 
     for x in range(width):
         for y in range(height):
-            red, green, blue = pixels[x, y]
+            red, green, blue = img.getpixel((x, y))
             avg = (red + green + blue) // 3
-            pixels[x, y] = (avg, avg, avg)
+            img.putpixel((x, y), (avg, avg, avg))
 
     img.save("bwImg.png")
 
 
 def main():
-    # Open the image file
+    
     myImg = Image.open("durango.png")
 
-    # Example (already completed)
-    # bwFilter(myImg)
+    swapImg = myImg.copy()
+    darkImg = myImg.copy()
 
-    # Uncomment each function as you complete it
-    # swapGreenBlue(myImg)
-    # darken(myImg, 20)
+    swapGreenBlue(swapImg)
+    darken(darkImg, 20)
 
 
 if __name__ == "__main__":
