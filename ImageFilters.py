@@ -1,7 +1,7 @@
 # Lab 9 – Image Processing
 # Name: Talia Astorino
 # Date: 04/05/2026
-# Purpose: Swappinf values of pixels in images.
+# Purpose: Swapping values of pixels in images.
 
 from PIL import Image
 
